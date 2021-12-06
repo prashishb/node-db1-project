@@ -17,8 +17,9 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/:id', (req, res, next) => {
-  // DO YOUR MAGIC
+// [GET] /api/accounts/:id
+router.get('/:id', checkAccountId, async (req, res) => {
+  res.json(req.account);
 });
 
 router.post('/', (req, res, next) => {
@@ -34,8 +35,10 @@ router.delete('/:id', (req, res, next) => {
 });
 
 router.use((err, req, res, next) => {
-  // eslint-disable-line
-  // DO YOUR MAGIC
+  res.status(err.status || 500).json({
+    message: err.message,
+    stack: err.stack,
+  });
 });
 
 module.exports = router;

@@ -9,7 +9,7 @@ const getByName = (name) => {
 };
 
 const getById = (id) => {
-  return db('accounts').where({ id });
+  return db('accounts').where({ id }).first();
 };
 
 const create = async (account) => {
