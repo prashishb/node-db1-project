@@ -40,9 +40,20 @@ router.post(
   }
 );
 
-router.put('/:id', (req, res, next) => {
-  // DO YOUR MAGIC
-});
+// [PUT] /api/accounts/:id
+router.put(
+  '/:id',
+  checkAccountId,
+  checkAccountPayload,
+  async (req, res, next) => {
+    try {
+      const updatedAccount = await Account.updateById(req.account.id, req.body);
+      res.json(updatedAccount);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 router.delete('/:id', (req, res, next) => {
   // DO YOUR MAGIC
