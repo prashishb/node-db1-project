@@ -55,8 +55,14 @@ router.put(
   }
 );
 
-router.delete('/:id', (req, res, next) => {
-  // DO YOUR MAGIC
+// [DELETE] /api/accounts/:id
+router.delete('/:id', checkAccountId, async (req, res, next) => {
+  try {
+    await Account.deleteById(req.params.id);
+    res.json(req.account);
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.use((err, req, res, next) => {
