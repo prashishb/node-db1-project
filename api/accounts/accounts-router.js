@@ -22,9 +22,23 @@ router.get('/:id', checkAccountId, async (req, res) => {
   res.json(req.account);
 });
 
-router.post('/', (req, res, next) => {
-  // DO YOUR MAGIC
-});
+// [POST] /api/accounts
+router.post(
+  '/',
+  checkAccountPayload,
+  checkAccountNameUnique,
+  async (req, res, next) => {
+    try {
+      const newAccount = await Account.create({
+        ...req.body,
+        name: req.body.name.trim(),
+      });
+      res.status(201).json(newAccount);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 router.put('/:id', (req, res, next) => {
   // DO YOUR MAGIC

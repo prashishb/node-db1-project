@@ -5,7 +5,7 @@ const getAll = () => {
 };
 
 const getByName = (name) => {
-  return db('accounts').where({ name });
+  return db('accounts').where({ name }).first();
 };
 
 const getById = (id) => {
